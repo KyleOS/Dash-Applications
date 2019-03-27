@@ -2,6 +2,8 @@ import base64
 import datetime
 import io
 import plotly.graph_objs as go
+import cufflinks as cf
+
 
 import dash
 from dash.dependencies import Input, Output, State
@@ -20,9 +22,9 @@ from jupyterlab_dash import AppViewer
 viewer = AppViewer()
 
 colors = {
-    "graphBackground": "#212529",
-    "background": "#000000",
-    "text": "#ffffff"
+    "graphBackground": "#F5F5F5",
+    "background": "#ffffff",
+    "text": "#000000"
 }
 
 app.layout = html.Div([
@@ -77,7 +79,6 @@ def parse_data(contents, filename):
 def update_graph(contents, filename):
     fig = {
         'layout': go.Layout(
-            title='Graph Name',
             plot_bgcolor=colors["graphBackground"],
             paper_bgcolor=colors["graphBackground"])
     }
@@ -87,12 +88,13 @@ def update_graph(contents, filename):
         filename = filename[0]
         df = parse_data(contents, filename)
         print(df)
-        trace1 = go.Scatter(
-            x=df['1'],
-            y=df['2'],
-            mode='lines',
-        )
-        fig['data'] = [trace1]
+        # trace1 = go.Scatter(
+        #     x=df.iloc[:,0],
+        #     y=df.iloc[:,1],
+        #     mode='lines+markers',
+        # )
+        # fig['data'] = [traces1]
+        fig['data'] = df.iplot(asFigure=True, kind='scatter', mode='lines+markers', size=6)
 
         table = html.Div([
             html.H5(filename),
