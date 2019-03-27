@@ -94,7 +94,8 @@ def update_graph(contents, filename):
         #     mode='lines+markers',
         # )
         # fig['data'] = [traces1]
-        fig['data'] = df.iplot(asFigure=True, kind='scatter', mode='lines+markers', size=6)
+        print(df['x'])
+        fig['data'] = df.iplot(asFigure=True, x='x', kind='scatter', mode='lines+markers', size=6)
 
         table = html.Div([
             html.H5(filename),
