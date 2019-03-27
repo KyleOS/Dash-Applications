@@ -19,7 +19,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # Build AppViewer
 from jupyterlab_dash import AppViewer
-viewer = AppViewer()
+viewer = AppViewer(port=8000)
 
 colors = {
     "graphBackground": "#F5F5F5",
@@ -143,4 +143,4 @@ def update_graph(contents, filename):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=True, port=8000)
