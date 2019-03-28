@@ -64,9 +64,9 @@ def parse_data(contents, filename):
             # Assume that the user uploaded an excel file
             df = pd.read_excel(io.BytesIO(decoded))
         elif 'txt' or 'tsv' in filename:
-            # Assume that the user uploaded an excel file
+            # Assume that the user upl, delimiter = r'\s+'oaded an excel file
             df = pd.read_csv(
-                io.StringIO(decoded.decode('utf-8')), delimiter='\t')
+                io.StringIO(decoded.decode('utf-8')), delimiter = r'\s+')
     except Exception as e:
         print(e)
         return html.Div([
@@ -99,7 +99,7 @@ def update_graph(contents, filename):
         # )
         # fig['data'] = [traces1]
         df = df.set_index(df.columns[0])
-        fig['data'] = df.iplot(asFigure=True, kind='scatter', mode='lines+markers', size=6)
+        fig['data'] = df.iplot(asFigure=True, kind='scatter', mode='lines+markers', size=1)
 
         table = html.Div([
             html.H5(filename),
