@@ -63,7 +63,7 @@ def parse_data(contents, filename):
         elif 'xls' in filename:
             # Assume that the user uploaded an excel file
             df = pd.read_excel(io.BytesIO(decoded))
-        elif 'txt' or 'txt' in filename:
+        elif 'txt' or 'tsv' in filename:
             # Assume that the user uploaded an excel file
             df = pd.read_csv(
                 io.StringIO(decoded.decode('utf-8')), delimiter='\t')
