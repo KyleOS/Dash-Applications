@@ -57,12 +57,16 @@ def parse_data(contents, filename):
     decoded = base64.b64decode(content_string)
     try:
         if 'csv' in filename:
-            # Assume that the user uploaded a CSV file
+            # Assume that the user uploaded a CSV or TXT file
             df = pd.read_csv(
                 io.StringIO(decoded.decode('utf-8')))
         elif 'xls' in filename:
             # Assume that the user uploaded an excel file
             df = pd.read_excel(io.BytesIO(decoded))
+        elif 'txt' or 'txt' in filename:
+            # Assume that the user uploaded an excel file
+            df = pd.read_csv(
+                io.StringIO(decoded.decode('utf-8')), delimiter='\t')
     except Exception as e:
         print(e)
         return html.Div([
@@ -94,8 +98,8 @@ def update_graph(contents, filename):
         #     mode='lines+markers',
         # )
         # fig['data'] = [traces1]
-        print(df['x'])
-        fig['data'] = df.iplot(asFigure=True, x='x', kind='scatter', mode='lines+markers', size=6)
+        df = df.set_index(df.columns[0])
+        fig['data'] = df.iplot(asFigure=True, kind='scatter', mode='lines+markers', size=6)
 
         table = html.Div([
             html.H5(filename),
