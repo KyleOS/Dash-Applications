@@ -4,7 +4,6 @@ import io
 import plotly.graph_objs as go
 import cufflinks as cf
 
-
 import dash
 from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
@@ -17,9 +16,9 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-# Build AppViewer
-from jupyterlab_dash import AppViewer
-viewer = AppViewer(port=8000)
+# # Build AppViewer
+# from jupyterlab_dash import AppViewer
+# viewer = AppViewer(port=8000)
 
 colors = {
     "graphBackground": "#F5F5F5",
@@ -75,6 +74,7 @@ def parse_data(contents, filename):
 
     return df
 
+
 @app.callback(Output('Mygraph', 'figure'),
             [
                 Input('upload-data', 'contents'),
@@ -91,13 +91,6 @@ def update_graph(contents, filename):
         contents = contents[0]
         filename = filename[0]
         df = parse_data(contents, filename)
-        print(df)
-        # trace1 = go.Scatter(
-        #     x=df.iloc[:,0],
-        #     y=df.iloc[:,1],
-        #     mode='lines+markers',
-        # )
-        # fig['data'] = [traces1]
         df = df.set_index(df.columns[0])
         fig['data'] = df.iplot(asFigure=True, kind='scatter', mode='lines+markers', size=1)
 
@@ -145,6 +138,8 @@ def update_graph(contents, filename):
         ])
 
     return table
+
+
 
 
 if __name__ == '__main__':

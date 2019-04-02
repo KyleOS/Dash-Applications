@@ -1,4 +1,0 @@
-jupyterlab>=0.35.0
-jupyter-server-proxy
-pandas
-dash
